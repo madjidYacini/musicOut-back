@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "server:dbg": "npx kill-port 9227 && babel-node --inspect=0.0.0.0:9227",
-    "start": "nodemon server --exec 'npm run server:dbg'"
+    "start": "nodemon --exec babel-node ./server.js",
+    "test": "nodemon server --exec 'npm run server:dbg'"
   },
   "dependencies": {
     "arg": "^2.0.1",
