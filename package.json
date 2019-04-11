@@ -8,6 +8,10 @@
     "build": "babel src --out-dir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": "10.15.0",
+    "npm": "5.2.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
