@@ -12,7 +12,7 @@
   },
   "engines": {
     "node": "10.15.0",
-    "npm": "6.7.0"
+    "npm": "5.2.0"
   },
   "dependencies": {
     "arg": "^2.0.1",
