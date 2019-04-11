@@ -10,7 +10,7 @@
   },
   "engines": {
     "node": "10.15.0",
-    "npm": "5.2.0"
+    "npm": "6.7.0"
   },
   "keywords": [],
   "author": "",
