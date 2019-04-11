@@ -11,7 +11,8 @@
     "test": "nodemon server --exec 'npm run server:dbg'"
   },
   "engines": {
-    "node": "10.x"
+    "node": "10.15.0",
+    "npm": "6.7.0"
   },
   "dependencies": {
     "arg": "^2.0.1",
