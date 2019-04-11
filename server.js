@@ -58,6 +58,7 @@ const start = async () => {
       // version the media type and extend the language for api versionning
       res.setHeader("Accept", "application/vnd.upload.island.v1+json");
 
+      // website we wish to allow to connect
       res.setHeader("Access-Control-Allow-Origin", "*");
 
       // request methods we wish to allow
