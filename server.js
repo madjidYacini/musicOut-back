@@ -17,7 +17,7 @@
 //   console.log(`Example app listening on port ${process.env.PORT}!`)
 // );
 
-import { NODE_ENV, PORT } from "@env";
+import { PORT } from "@env";
 import express from "express";
 import bodyParser from "body-parser";
 import passport from "passport";
@@ -37,23 +37,20 @@ const start = async () => {
       // aliases
       "-p": "--port"
     });
-    // Setting the application port depending to environment
-    const networkInterfaces = os.networkInterfaces();
-    const host = networkInterfaces.lo0[0].address || HOST;
-    const port = args.port || PORT;
+    const port = args.port || 5000;
     // database synchronization ...
     await database.authenticate();
     mLog("Connected to SQL database!", "green");
-    if (NODE_ENV === "development") {
-      mLog("Synchronizing database!");
-      // creates tables from models
-      database.sync({
-        force: false,
-        logging(str) {
-          mLog(str, "magenta");
-        }
-      });
-    }
+
+    mLog("Synchronizing database!");
+    // creates tables from models
+    database.sync({
+      force: false,
+      logging(str) {
+        mLog(str, "magenta");
+      }
+    });
+
     const app = express();
     // authentication middleware
     app.use(passport.initialize());
