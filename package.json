@@ -1,5 +1,5 @@
 {
-  "name": "upload.island",
+  "name": "musicOut",
   "version": "1.0.0",
   "description": "Let's talk about file upload",
   "main": "server.js",
@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "server:dbg": "npx kill-port 9227 && babel-node --inspect=0.0.0.0:9227",
-    "start": "node server --exec 'npm run server:dbg'"
+    "start": "nodemon server --exec 'npm run server:dbg'"
   },
   "dependencies": {
     "arg": "^2.0.1",
@@ -31,7 +31,8 @@
     "pg": "^7.5.0",
     "pg-hstore": "^2.3.2",
     "pg-native": "^3.0.0",
-    "sequelize": "^4.39.0"
+    "sequelize": "^4.39.0",
+    "nodemon": "^1.18.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
@@ -47,7 +48,6 @@
     "eslint-import-resolver-babel-module": "^4.0.0",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-import": "^2.14.0",
-    "maildev": "^1.0.0-rc3",
-    "nodemon": "^1.18.4"
+    "maildev": "^1.0.0-rc3"
   }
 }
