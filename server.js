@@ -32,12 +32,12 @@ import { db as database } from "./models";
 // Entry point function
 const start = async () => {
   try {
-    const args = mArg({
-      "--port": Number,
-      // aliases
-      "-p": "--port"
-    });
-    const port = args.port || 5000;
+    // const args = mArg({
+    //   "--port": Number,
+    //   // aliases
+    //   "-p": "--port"
+    // });
+    const port = 5000;
     // database synchronization ...
     await database.authenticate();
     mLog("Connected to SQL database!", "green");
@@ -53,7 +53,7 @@ const start = async () => {
 
     const app = express();
     // authentication middleware
-    app.use(passport.initialize());
+    // app.use(passport.initialize());
     // body data en+decoding
     app.use(bodyParser.urlencoded());
     app.use(bodyParser.json());
@@ -80,7 +80,7 @@ const start = async () => {
       next();
     });
     app.get("/", (req, res) => {
-      res.send(`Please feel free to use our api in ${host}:${port}/api`);
+      res.send(`Please feel free to use our api ${port}/api`);
     });
     // About routes definition
     // app.use("/api", api);
