@@ -94,9 +94,9 @@ const start = async () => {
   //   res.status(err.status || 500).json({ err: err.message });
   // });
   // ... and finally server listening
-  app.listen(port, err => {
+  app.listen(process.env.PORT, err => {
     if (err) throw err;
-    mLog(`Server is running on port ${port}`);
+    mLog(`Server is running on port ${process.env.PORT}`);
   });
 };
 // Let's Rock!
