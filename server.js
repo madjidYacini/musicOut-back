@@ -85,15 +85,15 @@ const start = async () => {
     // About routes definition
     // app.use("/api", api);
     // Catching 404 error and forwarding to error handler
-    app.use((req, res, next) => {
-      const err = new Error("Routes not found");
-      err.status = 404;
-      next(err);
-    });
+    // app.use((req, res, next) => {
+    //   const err = new Error("Routes not found");
+    //   err.status = 404;
+    //   next(err);
+    // });
     // error handler
-    app.use((err, req, res) => {
-      res.status(err.status || 500).json({ err: err.message });
-    });
+    // app.use((err, req, res) => {
+    //   res.status(err.status || 500).json({ err: err.message });
+    // });
     // ... and finally server listening
     app.listen(port, err => {
       if (err) throw err;
