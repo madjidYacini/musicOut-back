@@ -93,5 +93,4 @@ const start = async () => {
     mLog(`Server is running on port ${process.env.PORT}`);
   });
 };
-// Let's Rock!
 start();
