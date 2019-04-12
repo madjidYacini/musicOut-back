@@ -4,7 +4,7 @@ export default class Kind extends Model {
   static init(database) {
     return super.init(
       {
-        kindId: {
+        id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true
@@ -21,10 +21,16 @@ export default class Kind extends Model {
         indexes: [
           {
             unique: true,
-            fields: ["kindId"]
+            fields: ["id"]
           }
         ]
       }
     );
+  }
+
+  static associate(models) {
+    this.hasMany(models.Event, {
+      as: "events"
+    });
   }
 }

@@ -28,15 +28,9 @@ import mArg from "utils/mArg";
 import mLog from "utils/mLog";
 import "./middleware/passport";
 import { db as database } from "./models";
-// import api from "./routes/api";
+import api from "./routes/api";
 // Entry point function
 const start = async () => {
-  // const args = mArg({
-  //   "--port": Number,
-  //   // aliases
-  //   "-p": "--port"
-  // });
-  const port = 5000;
   // database synchronization ...
   await database.authenticate();
   mLog("Connected to SQL database!", "green");
@@ -52,7 +46,7 @@ const start = async () => {
 
   const app = express();
   // authentication middleware
-  // app.use(passport.initialize());
+  app.use(passport.initialize());
   // body data en+decoding
   app.use(bodyParser.urlencoded());
   app.use(bodyParser.json());
@@ -82,17 +76,17 @@ const start = async () => {
     res.send(`Please feel free to use our api ${process.env.PORT}/api`);
   });
   // About routes definition
-  // app.use("/api", api);
+  app.use("/api", api);
   // Catching 404 error and forwarding to error handler
-  // app.use((req, res, next) => {
-  //   const err = new Error("Routes not found");
-  //   err.status = 404;
-  //   next(err);
-  // });
+  app.use((req, res, next) => {
+    const err = new Error("Routes not found");
+    err.status = 404;
+    next(err);
+  });
   // error handler
-  // app.use((err, req, res) => {
-  //   res.status(err.status || 500).json({ err: err.message });
-  // });
+  app.use((err, req, res) => {
+    res.status(err.status || 500).json({ err: err.message });
+  });
   // ... and finally server listening
   app.listen(process.env.PORT, err => {
     if (err) throw err;

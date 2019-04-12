@@ -26,12 +26,5 @@ export const USER = {
 export const BLOB = {
   PATH: {
     EXIST_MESSAGE: "Pathname already create!"
-  },
-
-  PASSWORD: {
-    MIN_LENGTH: 7,
-    MIN_LENGTH_MESSAGE: "Please choose a longer password",
-    CONFIRMATION_MESSAGE: "Password confirmation doesn't match Password",
-    HASH_MESSAGE: "Can't hash password"
   }
 };

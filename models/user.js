@@ -67,7 +67,7 @@ export default class User extends Model {
         }
       },
       {
-        tableName: "artist",
+        // tableName: "artist",
         sequelize: database,
 
         indexes: [
@@ -131,10 +131,10 @@ export default class User extends Model {
     return values;
   }
 
-  //  static associate(models) {
-  //    models.Event.belongsTo(models.User, {
-  //      as: "user"
-  //    });
-  //    // models.Event.hasMany(models.Kind, { as: "kind" });
-  //  }
+  static associate(models) {
+    models.User.hasMany(models.Event, {
+      as: "events"
+    });
+    // models.Event.hasMany(models.Kind, { as: "kind" });
+  }
 }

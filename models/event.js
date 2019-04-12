@@ -4,7 +4,7 @@ export default class Event extends Model {
   static init(database) {
     return super.init(
       {
-        EventId: {
+        id: {
           type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true
@@ -45,14 +45,14 @@ export default class Event extends Model {
         indexes: [
           {
             unique: true,
-            fields: ["EventId"]
+            fields: ["id"]
           }
         ]
       }
     );
   }
   static associate(models) {
-    models.Event.belongsTo(models.User, { as: "user" });
-    // models.Event.hasMany(models.Kind, { as: "kind" });
+    this.belongsTo(models.User, { as: "user" });
+    this.belongsTo(models.Kind, { as: "kind" });
   }
 }
