@@ -18,6 +18,7 @@ api.get("/", (req, res) => {
 
 // a\ authentication
 api.use("/auth", auth);
+
 api.use("/", secured);
 
 export default api;

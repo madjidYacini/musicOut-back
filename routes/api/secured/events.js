@@ -71,7 +71,10 @@ api.get("/getEventUser", async (req, res) => {
     const events = await Event.findAll();
     res.json(success(events));
   } catch (error) {
-    res.status(400).json(error(BAD_REQUEST, error.message));
+    console.log("====================================");
+    console.log(error);
+    console.log("====================================");
+    // res.status(400).json(error(BAD_REQUEST, error.message));
   }
 });
 api.post("/addEvent", upload.single("image"), async (req, res) => {
