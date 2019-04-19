@@ -31,11 +31,23 @@ export default class Event extends Model {
         },
         like: {
           type: Sequelize.INTEGER,
-          allowNull: false
+          allowNull: true
         },
         dislike: {
           type: Sequelize.INTEGER,
-          allowNull: false
+          allowNull: true
+        },
+        duration: {
+          type: Sequelize.STRING,
+          allowNull: true
+        },
+        schedule: {
+          type: Sequelize.STRING,
+          allowNull: true
+        },
+        finish: {
+          type: Sequelize.BOOLEAN,
+          allowNull: true
         }
       },
       {

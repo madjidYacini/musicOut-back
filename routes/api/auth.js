@@ -43,7 +43,6 @@ api.post("/login", (req, res, next) => {
     if (err) {
       return res.status(400).json(error(BAD_REQUEST, err));
     }
-
     const { uuid, nickname, email } = user.toJSON();
     // generate a signed json web token with the contents of user object and
     const token = jwt.sign({ uuid, nickname, email }, JWT_ENCRYPTION);

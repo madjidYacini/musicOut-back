@@ -1,9 +1,8 @@
 import { Router } from "express";
 import { pick } from "lodash";
 import { success, error, update, deleteUser } from "helpers/response";
-import { BAD_REQUEST, UPDATE_MESSAGE } from "constants/api";
+import { BAD_REQUEST, UPDATE_MESSAGE, DELETE_MESSAGE } from "constants/api";
 import User from "models/user";
-import { DELETE_MESSAGE } from "../../../constants/api";
 
 const api = Router();
 
