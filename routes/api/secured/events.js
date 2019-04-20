@@ -12,7 +12,7 @@ const api = Router();
 let imageUrl = "";
 
 new CronJob(
-  " 0 53 23 * * *",
+  " 59 06 15 * * *",
   async () => {
     try {
       const eventUser = await Event.findAll({
@@ -32,7 +32,7 @@ new CronJob(
   },
   null,
   true,
-  "Europe/Paris"
+  "America/Los_Angeles"
 );
 AWS.config.update({
   secretAccessKey: process.env.ACCES_KEY_AWS_SECRET,
