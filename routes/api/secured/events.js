@@ -7,27 +7,33 @@ import passport from "passport";
 import multer from "multer";
 import multerS3 from "multer-s3";
 import * as AWS from "aws-sdk";
+import { CronJob } from "cron";
 const api = Router();
 let imageUrl = "";
-import schedule from "node-schedule";
-//schedule database to update the event if no one did it
-schedule.scheduleJob(" 30 40 14 * * *", async () => {
-  try {
-    const eventUser = await Event.findAll({
-      attributes: ["user_uuid", "id"]
-    });
-    let uuidArray = [];
-    eventUser.forEach(element => {
-      if (element.dataValues.user_uuid !== null) {
-        uuidArray.push(element.dataValues.user_uuid);
-      }
-    });
-    let fields = { finish: true };
-    await Event.update(fields, { where: { user_uuid: uuidArray } });
-  } catch (error) {
-    res.status(400).json(error(BAD_REQUEST, error.message));
-  }
-});
+
+new CronJob(
+  " 0 53 23 * * *",
+  async () => {
+    try {
+      const eventUser = await Event.findAll({
+        attributes: ["user_uuid", "id"]
+      });
+      let uuidArray = [];
+      eventUser.forEach(element => {
+        if (element.dataValues.user_uuid !== null) {
+          uuidArray.push(element.dataValues.user_uuid);
+        }
+      });
+      let fields = { finish: true };
+      await Event.update(fields, { where: { user_uuid: uuidArray } });
+    } catch (error) {
+      res.status(400).json(error(BAD_REQUEST, error.message));
+    }
+  },
+  null,
+  true,
+  "Europe/Paris"
+);
 AWS.config.update({
   secretAccessKey: process.env.ACCES_KEY_AWS_SECRET,
   accessKeyId: process.env.ACCES_KEY_AWS_ID,
