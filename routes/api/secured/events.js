@@ -12,7 +12,7 @@ const api = Router();
 let imageUrl = "";
 
 new CronJob(
-  " 59 06 15 * * *",
+  " 59 06 18 * * *",
   async () => {
     try {
       const eventUser = await Event.findAll({
