@@ -11,7 +11,7 @@ const api = Router();
 let imageUrl = "";
 import schedule from "node-schedule";
 //schedule database to update the event if no one did it
-schedule.scheduleJob(" 00 00 00 * * *", async () => {
+schedule.scheduleJob(" 30 30 23 * * *", async () => {
   try {
     const eventUser = await Event.findAll({
       attributes: ["user_uuid", "id"]
@@ -144,6 +144,19 @@ api.put("/:id/stat", upload.single("image"), async (req, res) => {
     await res.status(201).json(success({ event }));
   } catch (error) {
     res.status(400).json(error(BAD_REQUEST, error.message));
+  }
+});
+api.get("/:id/", async (req, res) => {
+  try {
+    const event = await Event.findOne({ where: { id: req.params.id } });
+
+    if (event) {
+      res.json(success(event));
+    } else {
+      res.json(error(BAD_REQUEST, `Oops, user ${req.params.id} doesn't exist`));
+    }
+  } catch (err) {
+    res.status(400).json(error(BAD_REQUEST, err.message));
   }
 });
 api.put("/:id/finish", async (req, res) => {

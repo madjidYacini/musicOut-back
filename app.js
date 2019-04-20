@@ -9,12 +9,7 @@ import mLog from "utils/mLog";
 import "./middleware/passport";
 import { db as database } from "./models";
 import api from "./routes/api";
-import expressWinston from "express-winston";
-// import { logger } from "utils/logger.js";
-// Entry point function
 const app = express();
-console.log("====================================");
-// console.log(logger);
 console.log("====================================");
 
 (async () => {
