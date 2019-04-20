@@ -11,7 +11,7 @@ const api = Router();
 let imageUrl = "";
 import schedule from "node-schedule";
 //schedule database to update the event if no one did it
-schedule.scheduleJob(" 30 30 23 * * *", async () => {
+schedule.scheduleJob(" 30 33 14 * * *", async () => {
   try {
     const eventUser = await Event.findAll({
       attributes: ["user_uuid", "id"]
