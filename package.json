@@ -24,6 +24,7 @@
     "@sendgrid/mail": "^6.3.1",
     "arg": "^2.0.1",
     "aws-sdk": "^2.437.0",
+    "ba64": "^3.0.9",
     "babel-plugin-dotenv-import": "^2.0.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-register": "^6.26.0",

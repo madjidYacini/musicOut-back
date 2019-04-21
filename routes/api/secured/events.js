@@ -8,6 +8,8 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 import * as AWS from "aws-sdk";
 import { CronJob } from "cron";
+import * as fs from "fs";
+import ba64 from "ba64";
 const api = Router();
 let imageUrl = "";
 
@@ -85,7 +87,13 @@ api.get("/getEventUser", async (req, res) => {
 });
 api.post("/addEvent", upload.single("image"), async (req, res) => {
   try {
-    const { description, title, latitude, longitude } = req.body;
+    const { description, title, latitude, longitude, imageBase64 } = req.body;
+    //transfomr the base64 to image
+
+    let image = ba64.writeImageSync("imaaage", imageBase64);
+    console.log("====================================");
+    console.log(image);
+    console.log("====================================");
     const event = new Event({
       description: description,
       title: title,
