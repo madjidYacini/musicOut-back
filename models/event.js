@@ -48,6 +48,10 @@ export default class Event extends Model {
         finish: {
           type: Sequelize.BOOLEAN,
           allowNull: true
+        },
+        kind: {
+          type: Sequelize.STRING,
+          allowNull: true
         }
       },
       {
@@ -65,6 +69,5 @@ export default class Event extends Model {
   }
   static associate(models) {
     this.belongsTo(models.User, { as: "user" });
-    this.belongsTo(models.Kind, { as: "kind" });
   }
 }

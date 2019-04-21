@@ -27,10 +27,4 @@ export default class Kind extends Model {
       }
     );
   }
-
-  static associate(models) {
-    this.hasMany(models.Event, {
-      as: "events"
-    });
-  }
 }

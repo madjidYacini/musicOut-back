@@ -91,9 +91,6 @@ api.post("/addEvent", upload.single("image"), async (req, res) => {
     //transfomr the base64 to image
 
     let image = ba64.writeImageSync("imaaage", imageBase64);
-    console.log("====================================");
-    console.log(image);
-    console.log("====================================");
     const event = new Event({
       description: description,
       title: title,
