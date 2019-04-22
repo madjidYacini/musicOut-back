@@ -2,17 +2,16 @@ import { Router } from "express";
 import { pick } from "lodash";
 import { success, error, update, deleteUser } from "helpers/response";
 import { BAD_REQUEST, UPDATE_MESSAGE, DELETE_MESSAGE } from "constants/api";
+import { storageS3 } from "services/storageS3";
 import Event from "models/event";
 import passport from "passport";
-import multer from "multer";
-import multerS3 from "multer-s3";
 import * as AWS from "aws-sdk";
 import { CronJob } from "cron";
-import * as fs from "fs";
-import ba64 from "ba64";
-const api = Router();
-let imageUrl = "";
+import { Op } from "sequelize";
 
+const api = Router();
+
+//CRON JOB TO UPDATE THE STATUS OF AN EVENT
 new CronJob(
   " 59 06 18 * * *",
   async () => {
@@ -36,61 +35,31 @@ new CronJob(
   true,
   "America/Los_Angeles"
 );
-AWS.config.update({
-  secretAccessKey: process.env.ACCES_KEY_AWS_SECRET,
-  accessKeyId: process.env.ACCES_KEY_AWS_ID,
-  region: "eu-west-3"
-});
-const s3 = new AWS.S3({
-  credentials: {
-    accessKeyId: process.env.ACCES_KEY_AWS_ID,
-    secretAccessKey: process.env.ACCES_KEY_AWS_SECRET
-  }
-});
-
-const upload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: "musicout-bucket",
-    acl: "public-read",
-    metadata: function(req, file, cb) {
-      cb(null, { fieldName: file.fieldname });
-    },
-    key: function(req, file, cb) {
-      let imageName = Date.now().toString() + "_" + file.originalname;
-      imageUrl =
-        "https://s3.eu-west-3.amazonaws.com/musicout-bucket/" + imageName;
-      cb(null, imageName);
-    }
-  })
-});
 
 api.get("/", async (req, res) => {
   try {
-    const events = await Event.findAll();
-    res.json(success(events));
-  } catch (error) {
-    res.status(400).json(error(BAD_REQUEST, error.message));
-  }
-});
-
-api.get("/getEventUser", async (req, res) => {
-  try {
-    const events = await Event.findAll();
+    const events = await Event.findAll({
+      where: {
+        finish: {
+          [Op.or]: [false, null]
+        }
+      }
+    });
     res.json(success(events));
   } catch (error) {
     console.log("====================================");
     console.log(error);
     console.log("====================================");
-    // res.status(400).json(error(BAD_REQUEST, error.message));
+    res.status(400).json(error(BAD_REQUEST, error.message));
   }
 });
-api.post("/addEvent", upload.single("image"), async (req, res) => {
+
+// ADD EVENT BY A FAN
+api.post("/addEvent", async (req, res) => {
   try {
     const { description, title, latitude, longitude, imageBase64 } = req.body;
-    //transfomr the base64 to image
-
-    let image = ba64.writeImageSync("imaaage", imageBase64);
+    //transfrom the base64 to image
+    let imageUrl = storageS3(imageBase64);
     const event = new Event({
       description: description,
       title: title,
@@ -98,20 +67,21 @@ api.post("/addEvent", upload.single("image"), async (req, res) => {
       longitude: longitude,
       picture: imageUrl
     });
+    // SAVE THE EVENT
     await event.save();
     res.status(201).json(success({ event }));
   } catch (error) {
-    console.log("====================================");
-    console.log(error);
-    console.log("====================================");
     res.status(400).json(error(BAD_REQUEST, error.message));
   }
 });
+
+// ADD EVENT BY ARTIST
 api.post(
   "/:uuid/addEvent",
   passport.authenticate("jwt", { session: false }),
-  upload.single("image"),
   async (req, res) => {
+    //transfrom the base64 to image
+
     try {
       const { uuid } = req.params;
       const {
@@ -120,8 +90,14 @@ api.post(
         latitude,
         longitude,
         duration,
-        schedule
+        schedule,
+        imageBase64
       } = req.body;
+
+      // upload the image in AWS-S3 and return the URL to store it in DB
+      let imageUrl = storageS3(imageBase64);
+
+      //store the event
       const event = new Event({
         description: description,
         title: title,
@@ -133,13 +109,15 @@ api.post(
         duration: duration
       });
       await event.save();
+
       res.status(201).json(success({ event }));
     } catch (error) {
       res.status(400).json(error(BAD_REQUEST, error.message));
     }
   }
 );
-api.put("/:id/stat", upload.single("image"), async (req, res) => {
+//update statistics of an event
+api.put("/:id/stat", async (req, res) => {
   try {
     const event = await Event.findOne({ where: { id: req.params.id } });
     if (event) {
@@ -157,6 +135,8 @@ api.put("/:id/stat", upload.single("image"), async (req, res) => {
     res.status(400).json(error(BAD_REQUEST, error.message));
   }
 });
+
+//GET AN EVENT BY ID
 api.get("/:id/", async (req, res) => {
   try {
     const event = await Event.findOne({ where: { id: req.params.id } });

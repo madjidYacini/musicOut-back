@@ -1,5 +1,4 @@
-import Sequelize, { Model } from "sequelize";
-
+import Sequelize, { Model, Op } from "sequelize";
 export default class Event extends Model {
   static init(database) {
     return super.init(
