@@ -18,7 +18,7 @@ export default class Event extends Model {
         },
         picture: {
           type: Sequelize.STRING,
-          allowNull: false
+          allowNull: true
         },
         latitude: {
           type: Sequelize.FLOAT,
