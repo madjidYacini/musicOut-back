@@ -57,7 +57,7 @@ api.get("/", async (req, res) => {
 // ADD EVENT BY A FAN
 api.post("/addEvent", async (req, res) => {
   try {
-    const { description, title, latitude, longitude, picture } = req.body;
+    const { description, title, latitude, longitude } = req.body;
     //transfrom the base64 to image
     console.log("====================================");
     console.log(req.body);
