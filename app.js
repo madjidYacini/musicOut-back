@@ -30,9 +30,14 @@ console.log("====================================");
 // authentication middleware
 app.use(passport.initialize());
 // body data en+decoding
-app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "100mb",
+    extended: true,
+    parameterLimit: 10000000000
+  })
+);
 app.use(bodyParser.json({ limit: "100mb", extended: true }));
-app.use(express.limit(100000000000));
 app.use(cors());
 app.use((req, res, next) => {
   // version the media type and extend the language for api versionning
