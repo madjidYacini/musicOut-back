@@ -32,12 +32,12 @@ app.use(passport.initialize());
 // body data en+decoding
 app.use(
   bodyParser.urlencoded({
-    limit: "100mb",
+    limit: "10000mb",
     extended: true,
-    parameterLimit: 10000000000
+    parameterLimit: 1000000000000000
   })
 );
-app.use(bodyParser.json({ limit: "100mb", extended: true }));
+app.use(bodyParser.json({ limit: "10000mb", extended: true }));
 app.use(cors());
 app.use((req, res, next) => {
   // version the media type and extend the language for api versionning
