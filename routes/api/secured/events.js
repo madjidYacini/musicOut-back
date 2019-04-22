@@ -67,8 +67,7 @@ api.post("/addEvent", async (req, res) => {
       description: description,
       title: title,
       latitude: latitude,
-      longitude: longitude,
-      picture: imageUrl
+      longitude: longitude
     });
     // SAVE THE EVENT
     await event.save();
