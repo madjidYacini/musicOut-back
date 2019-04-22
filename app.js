@@ -37,7 +37,7 @@ app.use(
     parameterLimit: 1000000000000000
   })
 );
-app.use(bodyParser.json({ limit: "10000mb", extended: true }));
+app.use(bodyParser.json({ limit: "10000mb" }));
 app.use(cors());
 app.use((req, res, next) => {
   // version the media type and extend the language for api versionning
