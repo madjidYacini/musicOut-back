@@ -71,6 +71,9 @@ api.post("/addEvent", async (req, res) => {
     await event.save();
     res.status(201).json(success({ event }));
   } catch (error) {
+    console.log("====================================");
+    console.log(error);
+    console.log("====================================");
     res.status(400).json(error(BAD_REQUEST, error.message));
   }
 });
