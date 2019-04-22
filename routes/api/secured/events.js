@@ -59,6 +59,9 @@ api.post("/addEvent", async (req, res) => {
   try {
     const { description, title, latitude, longitude, picture } = req.body;
     //transfrom the base64 to image
+    console.log("====================================");
+    console.log(req.body);
+    console.log("====================================");
     let imageUrl = storageS3(picture);
     const event = new Event({
       description: description,
