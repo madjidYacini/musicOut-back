@@ -30,8 +30,7 @@ ADD . ./
 #
 
 # installing dependencies
-RUN npm
-RUN npm install --peer
+RUN npm install 
 
 # running our test
 RUN npm run test
