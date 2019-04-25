@@ -48,7 +48,7 @@ export const updateEventStats = async (req, res) => {
   try {
     const event = await Event.findOne({ where: { id: req.params.id } });
     if (event) {
-      const fields = pick(req.body, ["like", "dislike"], "finish");
+      const fields = pick(req.body, "like", "dislike", "finish");
       if (fields.like) {
         fields.like = event.like + 1;
       }
