@@ -1,0 +1,23 @@
+# use CircleCI 2.0
+version: 2
+
+# basic units of work in a run
+jobs:
+  # runs not using workflows must have a `build` job as entry point
+  build:
+    # environment variables use in our primary container
+    environment:
+    machine: true
+    steps:
+      # check out source code to working directory
+      - checkout
+      - run:
+          name: build our docker test container
+          # running our test container
+          command: |
+            docker build -f .circleci/Dockerfile .  \
+              --build-arg CI                        \
+              --build-arg CIRCLECI                  \
+              --build-arg CIRCLE_BUILD_NUM          \
+              --build-arg CIRCLE_BRANCH             \
+              --build-arg CIRCLE_SHA1               \

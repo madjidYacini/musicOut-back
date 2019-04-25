@@ -1,0 +1,6 @@
+##
+# DOCKER _ IGNORE FILE
+##
+
+/.git/
+/node_modules/
