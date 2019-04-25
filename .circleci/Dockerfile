@@ -3,7 +3,7 @@
 #
 
 # base images
-FROM mhart/alpine-node:11.3.0
+FROM mhart/alpine-node:10.15.0
 
 #
 # ENVIRONMENTS
