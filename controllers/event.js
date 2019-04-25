@@ -16,9 +16,6 @@ export async function getEventController(req, res) {
     });
     res.json(success(events));
   } catch (error) {
-    console.log("====================================");
-    console.log(error);
-    console.log("====================================");
     res.status(400).json(error(BAD_REQUEST, error.message));
   }
 }

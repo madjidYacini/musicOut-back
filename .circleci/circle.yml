@@ -10,4 +10,4 @@ jobs:
                 command: npm install
             - run:
                 name: tests
-                command: npm test
+                command: npm run test
