@@ -47,13 +47,17 @@ export function storageS3(imageBase64) {
 
     s3.putObject(params, (err, data) => {
       if (err) {
-        res.status(400).send(error.message);
+        console.log("====================================");
+        console.log(error.message);
+        console.log("====================================");
       } else {
         console.log("Successfully uploaded data to myBucket/myKey");
       }
     });
     return imageUrl;
   } catch (error) {
-    res.status(400).send(error);
+    console.log("====================================");
+    console.log(error);
+    console.log("====================================");
   }
 }

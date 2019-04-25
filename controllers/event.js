@@ -94,12 +94,12 @@ export const addEventArtist = async (req, res) => {
       longitude,
       duration,
       schedule,
-      imageBase64,
+      picture,
       kind
     } = req.body;
 
     // upload the image in AWS-S3 and return the URL to store it in DB
-    let imageUrl = storageS3(imageBase64);
+    let imageUrl = storageS3(picture);
 
     //store the event
     const event = new Event({
@@ -117,6 +117,9 @@ export const addEventArtist = async (req, res) => {
 
     res.status(201).json(success({ event }));
   } catch (error) {
+    console.log("====================================");
+    console.log(error);
+    console.log("====================================");
     res.status(400).json(error(BAD_REQUEST, error.message));
   }
 };
