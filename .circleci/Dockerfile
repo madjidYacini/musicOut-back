@@ -30,8 +30,8 @@ ADD . ./
 #
 
 # installing dependencies
-RUN yarn
-RUN yarn install --peer
+RUN npm
+RUN npm install --peer
 
 # running our test
-RUN yarn test
+RUN npm run test
