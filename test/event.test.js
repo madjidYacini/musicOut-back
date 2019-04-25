@@ -1,5 +1,6 @@
 import app from "../app";
 import event from "../routes/api/secured/events";
+import { getEventController } from "controllers/event";
 import sinon from "sinon";
 chai.should();
 chai.expect();
@@ -15,7 +16,21 @@ describe("test APP.JS", () => {
         console.log("====================================");
         console.log(res);
         // console.log('====================================');
-        // let spyGetEvent = sinon.spy(event.)
+        let spyGetEvent = sinon.spy(getEventController);
+        res.should.have.status(200);
+        res.body.should.be.a("object");
+        done();
+      });
+  });
+  it("should get the'/api/events/with id'  ", done => {
+    chai
+      .request(app)
+      .get("/api/events/1")
+      .end((err, res) => {
+        console.log("====================================");
+        console.log(res);
+        // console.log('====================================');
+        let spyGetEvent = sinon.spy(getEventController);
         res.should.have.status(200);
         res.body.should.be.a("object");
         done();

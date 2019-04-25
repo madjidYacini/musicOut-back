@@ -2,27 +2,20 @@ import express from "express";
 import bodyParser from "body-parser";
 import passport from "passport";
 import cors from "cors";
-import os from "os";
-import path from "path";
-import mArg from "utils/mArg";
 import mLog from "utils/mLog";
 import "./middleware/passport";
 import { db as database } from "./models";
 import api from "./routes/api";
 const app = express();
-console.log("====================================");
 
 (async () => {
   await database.authenticate();
   mLog("Connected to SQL database!", "green");
-
-  mLog("Synchronizing database!");
   // creates tables from models
   database.sync({
     force: false,
     logging(str) {
       mLog(str, "magenta");
-      //   logger.log("info", "some demo message");
     }
   });
 })();

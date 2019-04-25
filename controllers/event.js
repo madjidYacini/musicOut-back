@@ -1,6 +1,6 @@
 import Event from "models/event";
 import { Op } from "sequelize";
-import { success, error, update, deleteUser } from "helpers/response";
+import { success, error, update } from "helpers/response";
 import { storageS3 } from "services/storageS3";
 import { BAD_REQUEST, UPDATE_MESSAGE, DELETE_MESSAGE } from "constants/api";
 import { pick } from "lodash";
@@ -20,7 +20,7 @@ export async function getEventController(req, res) {
   }
 }
 
-export const addEventFan = async (req, res) => {
+export const addEventFanController = async (req, res) => {
   try {
     const { description, title, latitude, longitude, picture, kind } = req.body;
     //transfrom the base64 to image
@@ -37,38 +37,52 @@ export const addEventFan = async (req, res) => {
     await event.save();
     res.status(201).json(success({ event }));
   } catch (error) {
-    console.log("====================================");
-    console.log(error);
-    console.log("====================================");
     res.status(400).json(error(BAD_REQUEST, error.message));
   }
 };
 
-export const updateEventStats = async (req, res) => {
+export const updateEventStatsLikeController = async (req, res) => {
   try {
     const event = await Event.findOne({ where: { id: req.params.id } });
     if (event) {
-      const fields = pick(req.body, ["like", "dislike", "finish"]);
-      if (fields.like) {
-        fields.like = event.like + 1;
-      }
-      if (fields.dislike) {
-        fields.dislike = event.dislike + 1;
-      }
-      if (fields.finish) {
-        fields.finish = true;
-      }
+      const fields = pick(req.body, "like");
+
+      fields.like = event.like + 1;
+
       event.update(fields);
     }
     await res.status(201).json(success({ event }));
   } catch (error) {
-    console.log("====================================");
-    console.log(error);
-    console.log("====================================");
     res.status(400).json(error(BAD_REQUEST, error.message));
   }
 };
-export const getEventByID = async (req, res) => {
+export const updateEventStatsDislikeController = async (req, res) => {
+  try {
+    const event = await Event.findOne({ where: { id: req.params.id } });
+    if (event) {
+      const fields = pick(req.body, "dislike");
+
+      fields.like = event.dislike + 1;
+
+      event.update(fields);
+    }
+    await res.status(201).json(success({ event }));
+  } catch (error) {
+    res.status(400).json(error(BAD_REQUEST, error.message));
+  }
+};
+export const updateEventFinishController = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    let fields = { finish: true };
+    await Event.update(fields, { where: { id: id } });
+    res.json(update(UPDATE_MESSAGE));
+  } catch (err) {
+    res.status(400).json(error(BAD_REQUEST, error.message));
+  }
+};
+export const getEventByIDController = async (req, res) => {
   try {
     const event = await Event.findOne({ where: { id: req.params.id } });
 
@@ -82,9 +96,7 @@ export const getEventByID = async (req, res) => {
   }
 };
 
-export const addEventArtist = async (req, res) => {
-  //transfrom the base64 to image
-
+export const addEventArtistController = async (req, res) => {
   try {
     const { uuid } = req.params;
     const {
@@ -117,9 +129,6 @@ export const addEventArtist = async (req, res) => {
 
     res.status(201).json(success({ event }));
   } catch (error) {
-    console.log("====================================");
-    console.log(error);
-    console.log("====================================");
-    res.status(400).json(error(BAD_REQUEST, error.message));
+    res.status(400).json(error(BAD_REQUEST, error));
   }
 };

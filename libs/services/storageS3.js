@@ -1,5 +1,5 @@
 import * as AWS from "aws-sdk";
-
+import mLog from "utils/mLog";
 const s3 = new AWS.S3({
   credentials: {
     accessKeyId: process.env.ACCES_KEY_AWS_ID,
@@ -9,7 +9,7 @@ const s3 = new AWS.S3({
 AWS.config.update({
   secretAccessKey: process.env.ACCES_KEY_AWS_SECRET,
   accessKeyId: process.env.ACCES_KEY_AWS_ID,
-  region: "eu-west-3"
+  region: process.env.REGION
 });
 
 export function storageS3(imageBase64) {
@@ -17,12 +17,11 @@ export function storageS3(imageBase64) {
     let imageUrl = "";
 
     let params = {
-      Bucket: "musicout-bucket",
+      Bucket: process.env.BUCKET_NAME,
       Key: "",
       Body: "",
-      ContentEncoding: "base64",
-      ACL: "public-read",
-      ContentType: "image/jpeg"
+      ContentEncoding: process.env.ENCODING_TYPE,
+      ACL: process.env.ACL
     };
     let bufferImage = Buffer.from(
       imageBase64.replace(/^data:image\/\w+;base64,/, ""),
@@ -47,11 +46,11 @@ export function storageS3(imageBase64) {
 
     s3.putObject(params, (err, data) => {
       if (err) {
-        console.log("====================================");
-        console.log(error.message);
-        console.log("====================================");
       } else {
-        console.log("Successfully uploaded data to myBucket/myKey");
+        mLog(
+          `Successfully uploaded data to ${params.Bucket}/${params.Key}`,
+          "blue"
+        );
       }
     });
     return imageUrl;

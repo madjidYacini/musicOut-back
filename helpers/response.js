@@ -18,3 +18,9 @@ export function error({ status, code }, fields, description = "missing") {
     }
   };
 }
+export function userProfile(resources, stats) {
+  return {
+    user: resources,
+    statistics: stats
+  };
+}

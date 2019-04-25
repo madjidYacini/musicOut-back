@@ -10,7 +10,7 @@ export const INTERNAL_ERROR = {
 
 export const UPDATE_MESSAGE = {
   status: 402,
-  message: "updated succesffuly"
+  message: "updated successfully"
 };
 
 export const DELETE_MESSAGE = {

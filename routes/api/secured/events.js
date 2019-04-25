@@ -1,15 +1,16 @@
 import { Router } from "express";
-import { pick } from "lodash";
 import Event from "models/event";
 import passport from "passport";
 import { CronJob } from "cron";
 import {
   getEventController,
-  addEventFan,
-  getEventByID,
-  addEventArtist
+  addEventFanController,
+  getEventByIDController,
+  addEventArtistController,
+  updateEventStatsDislikeController,
+  updateEventStatsLikeController,
+  updateEventFinishController
 } from "controllers/event";
-import { updateEventStats } from "../../../controllers/event";
 const api = Router();
 
 //CRON JOB TO UPDATE THE STATUS OF AN EVENT
@@ -40,28 +41,20 @@ new CronJob(
 api.get("/", getEventController);
 
 // ADD EVENT BY A FAN
-api.post("/addEvent", addEventFan);
+api.post("/addEvent", addEventFanController);
 
 // ADD EVENT BY ARTIST
 api.post(
   "/:uuid/addEvent",
   passport.authenticate("jwt", { session: false }),
-  addEventArtist
+  addEventArtistController
 );
 //update statistics of an event
-api.put("/:id/stat", updateEventStats);
+api.put("/:id/stat/like", updateEventStatsLikeController);
+api.put("/:id/stat/dislike", updateEventStatsDislikeController);
 
 //GET AN EVENT BY ID
-api.get("/:id/", getEventByID);
-api.put("/:id/finish", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    let fields = { finish: true };
-    await Event.update(fields, { where: { id: id } });
-    res.json(update(UPDATE_MESSAGE));
-  } catch (err) {
-    res.status(400).json(error(BAD_REQUEST, error.message));
-  }
-});
+api.get("/:id/", getEventByIDController);
+//
+api.put("/:id/finish", updateEventFinishController);
 export default api;
