@@ -55,6 +55,6 @@ api.put("/:id/stat/dislike", updateEventStatsDislikeController);
 
 //GET AN EVENT BY ID
 api.get("/:id/", getEventByIDController);
-//
+//FINISH EVENT
 api.put("/:id/finish", updateEventFinishController);
 export default api;
