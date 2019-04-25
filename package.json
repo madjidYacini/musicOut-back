@@ -9,7 +9,7 @@
     "test:watch": "node_modules/.bin/ava --verbose --watch"
   },
   "engines": {
-    "node": "10.15.0",
+    "node": "11.3.0",
     "npm": "6.7.0"
   },
   "keywords": [],

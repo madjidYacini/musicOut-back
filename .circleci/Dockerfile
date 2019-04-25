@@ -3,7 +3,7 @@
 #
 
 # base images
-FROM mhart/alpine-node:10.15.0
+FROM mhart/alpine-node:11.3.0
 
 #
 # ENVIRONMENTS
@@ -30,13 +30,7 @@ ADD . ./
 #
 
 # installing dependencies
-RUN apk add --no-cache --virtual .gyp \
-        python \
-        make \
-        g++ \
-    && npm install \
-        [ your npm dependencies here ] \
-    && apk del .gyp
+RUN npm install 
 
 # running our test
 RUN npm run test
