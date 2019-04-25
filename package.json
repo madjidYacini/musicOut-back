@@ -55,7 +55,8 @@
     "pg": "^7.5.0",
     "pg-hstore": "^2.3.2",
     "pg-native": "^3.0.0",
-    "sequelize": "^4.39.0"
+    "sequelize": "^4.39.0",
+    "sinon": "^7.3.2"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0"

@@ -19,7 +19,8 @@
           "utils": "./libs/utils",
           "services": "./libs/services",
           "constants": "./constants",
-          "helpers": "./helpers"
+          "helpers": "./helpers",
+          "controllers": "./controllers"
         }
       }
     ]
