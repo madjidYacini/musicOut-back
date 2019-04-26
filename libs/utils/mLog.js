@@ -1,4 +1,3 @@
-import { NODE_ENV } from "@env";
 import kleur from "kleur";
 import moment from "moment";
 
@@ -50,6 +49,3 @@ export default function(
 }
 
 // adding mDump do global scope on development to avoid import/from
-if (NODE_ENV === "development") {
-  global.mDump = mDump;
-}
