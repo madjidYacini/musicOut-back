@@ -21,7 +21,8 @@ export function storageS3(imageBase64) {
       Key: "",
       Body: "",
       ContentEncoding: process.env.ENCODING_TYPE,
-      ACL: "public-read"
+      ACL: "public-read",
+      ContentType: "image/jpeg"
     };
     let bufferImage = Buffer.from(
       imageBase64.replace(/^data:image\/\w+;base64,/, ""),
