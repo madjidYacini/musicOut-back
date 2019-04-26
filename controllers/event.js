@@ -1,6 +1,6 @@
 import Event from "models/event";
 import { Op } from "sequelize";
-import { success, error, update } from "helpers/response";
+import { success, error, update, deleteUser } from "helpers/response";
 import { storageS3 } from "services/storageS3";
 import { BAD_REQUEST, UPDATE_MESSAGE, DELETE_MESSAGE } from "constants/api";
 import { pick } from "lodash";
@@ -130,5 +130,25 @@ export const addEventArtistController = async (req, res) => {
     res.status(201).json(success({ event }));
   } catch (error) {
     res.status(400).json(error(BAD_REQUEST, error));
+  }
+};
+
+export const deleteEventController = async (req, res) => {
+  try {
+    const event = await Event.findOne({ where: { id: req.params.id } });
+    if (event) {
+      await event.destroy({ force: true });
+
+      res.json(deleteUser(DELETE_MESSAGE));
+    } else {
+      res.status(400).json({
+        message: "the event is already deleted"
+      });
+    }
+  } catch (err) {
+    console.log("====================================");
+    console.log(err);
+    console.log("====================================");
+    res.status(400).json(error(BAD_REQUEST, err.message));
   }
 };

@@ -9,7 +9,8 @@ import {
   addEventArtistController,
   updateEventStatsDislikeController,
   updateEventStatsLikeController,
-  updateEventFinishController
+  updateEventFinishController,
+  deleteEventController
 } from "controllers/event";
 const api = Router();
 
@@ -57,4 +58,5 @@ api.put("/:id/stat/dislike", updateEventStatsDislikeController);
 api.get("/:id/", getEventByIDController);
 //FINISH EVENT
 api.put("/:id/finish", updateEventFinishController);
+api.delete("/:id/delete", deleteEventController);
 export default api;
