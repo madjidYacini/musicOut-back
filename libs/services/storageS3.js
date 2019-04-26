@@ -56,8 +56,6 @@ export function storageS3(imageBase64) {
     });
     return imageUrl;
   } catch (error) {
-    console.log("====================================");
-    console.log(error);
-    console.log("====================================");
+    res.status(400).json(error(BAD_REQUEST, error));
   }
 }

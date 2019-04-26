@@ -146,9 +146,6 @@ export const deleteEventController = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log("====================================");
-    console.log(err);
-    console.log("====================================");
     res.status(400).json(error(BAD_REQUEST, err.message));
   }
 };

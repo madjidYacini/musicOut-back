@@ -13,9 +13,6 @@ describe("test APP.JS", () => {
       .request(app)
       .get("/api/events/")
       .end((err, res) => {
-        console.log("====================================");
-        console.log(res);
-        // console.log('====================================');
         let spyGetEvent = sinon.spy(getEventController);
         res.should.have.status(200);
         res.body.should.be.a("object");
@@ -27,9 +24,6 @@ describe("test APP.JS", () => {
       .request(app)
       .get("/api/events/1")
       .end((err, res) => {
-        console.log("====================================");
-        console.log(res);
-        // console.log('====================================');
         let spyGetEvent = sinon.spy(getEventController);
         res.should.have.status(200);
         res.body.should.be.a("object");
