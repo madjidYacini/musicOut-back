@@ -17,11 +17,11 @@ export function storageS3(imageBase64) {
     let imageUrl = "";
 
     let params = {
-      Bucket: process.env.BUCKET_NAME,
+      Bucket: "musicout-bucket",
       Key: "",
       Body: "",
       ContentEncoding: process.env.ENCODING_TYPE,
-      ACL: process.env.ACL
+      ACL: "public-read"
     };
     let bufferImage = Buffer.from(
       imageBase64.replace(/^data:image\/\w+;base64,/, ""),

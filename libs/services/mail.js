@@ -4,7 +4,7 @@ export function sendMessage(toSend, nickname) {
   sgMail.setApiKey(process.env.SEND_GRID_MAIL_KEY);
   const message = {
     to: toSend,
-    from: "madjid.yacini@gmail.com",
+    from: "support@musicOut.com",
     subject: "MusicOut, music every where",
     text: `Dear ${nickname}.
     hello to our application
